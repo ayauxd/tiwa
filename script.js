@@ -60,7 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'custom': {
             message: "I'd be happy to discuss your specific needs. Please describe what you're looking to achieve with AI workflow automation.",
             suggestions: []
-        }
+        },
+        'default': 'Thank you for your message. That\'s an interesting area to explore with AI integration. Would you like to know more about how we could implement this in your specific business context?'
     };
     
     // Function to add message to chat
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Generic AI response for text input
                 setTimeout(() => {
-                    addMessage("Thank you for sharing that. I recommend scheduling a consultation with our AI integration specialist who can provide personalized solutions for your specific needs.");
+                    addMessage(chatResponses.default);
                 }, 500);
             }
         });
@@ -275,26 +276,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (themeToggle) {
         themeToggle.addEventListener('click', function() {
-        // Toggle dark mode
-        body.classList.toggle('dark-mode');
-        
-            // Save preference to localStorage
-        if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-        } else {
-                localStorage.setItem('theme', 'light');
-            }
+            document.body.classList.toggle('dark-theme');
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
         });
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        }
     }
     
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-    } else if (savedTheme === 'light') {
-        document.body.classList.remove('dark-mode');
-    }
-
     // Solution card selection
     const solutionCards = document.querySelectorAll('.solutions .card');
     
@@ -716,7 +708,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!expanded) {
                 collapsibleContent.classList.add('expanded');
                 this.querySelector('.btn-text').textContent = 'Hide consultation form';
-                    } else {
+            } else {
                 collapsibleContent.classList.remove('expanded');
                 this.querySelector('.btn-text').textContent = 'Show consultation form';
             }

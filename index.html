@@ -167,25 +167,20 @@
                             <button class="chat-suggestion-btn" data-option="custom">Something else</button>
                         </div>
                         
-                        <div class="whitelist-form-container">
-                            <form id="whitelist-form" class="whitelist-form">
-                                <div class="form-group">
-                                    <label for="whitelistName">Your Name</label>
-                                    <input type="text" id="whitelistName" name="name" placeholder="Enter your name" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="whitelistPhone">Phone Number</label>
-                                    <input type="tel" id="whitelistPhone" name="phone" placeholder="Enter your phone number" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="whitelistMessage">What would you like to discuss?</label>
-                                    <textarea id="whitelistMessage" name="message" rows="3" placeholder="Briefly describe what you're looking to achieve with AI"></textarea>
-                                </div>
-                                <div class="form-submit">
-                                    <button type="submit" class="cta-button">Get Whitelisted for TIWA Agent</button>
-                                    <p class="form-note">We'll text you when a TIWA specialist is available to discuss your AI needs</p>
-                                </div>
-                            </form>
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="chat-bubble ai-bubble">
+                                <p>Hi there! I'm your TIWA.AI assistant. I can help you understand how AI can transform your workflow. Which area would you like to explore first? Feel free to select one of the options above or type your own question.</p>
+                            </div>
+                            <!-- Dynamic messages will appear here -->
+                        </div>
+                        
+                        <div class="chat-input-wrapper">
+                            <input type="text" class="chat-input" placeholder="Type your message..." aria-label="Type your message">
+                            <div class="chat-actions">
+                                <button class="chat-action-button" id="start-chat" aria-label="Send message">
+                                    <i class="ph ph-paper-plane-right"></i>
+                                </button>
+                            </div>
                         </div>
                         
                         <div class="chat-footnote">
