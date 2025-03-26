@@ -1052,13 +1052,43 @@ header.scrolled .logo-subtitle {
     }
 }
 
-/* Mobile view fixes for hamburger menu, theme toggle, and hero image */
+/* Mobile view fixes for header, hero image, and navigation */
 @media screen and (max-width: 768px) {
-    /* Improved hamburger menu visibility and placement */
+    /* Center logo in mobile view */
+    .logo-container {
+        padding: 5px 0;
+        align-items: center;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 15px;
+        max-width: 180px;
+    }
+    
+    .header-logo {
+        font-size: 24px;
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    .logo-subtitle {
+        font-size: 10px;
+        text-align: center;
+        max-width: 100%;
+        margin: 2px auto 0;
+        border-left: none;
+        padding-left: 0;
+        line-height: 1.2;
+    }
+    
+    /* Position hamburger menu on right, toggle on left */
     .mobile-nav-toggle {
         position: absolute;
         right: 15px;
-        top: 20px;
+        top: 15px;
         width: 40px;
         height: 40px;
         display: flex;
@@ -1074,60 +1104,133 @@ header.scrolled .logo-subtitle {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
+    /* Improved toggle bar styling */
     .toggle-bar {
         width: 24px;
         height: 3px;
         margin: 2px 0;
         background-color: var(--text-primary);
         border-radius: 2px;
+        transition: all 0.3s ease;
     }
     
-    /* Fix header layout for mobile */
-    header {
-        padding: 10px 15px;
-        height: auto;
-        max-height: 70px;
-        overflow: visible;
-    }
-    
-    /* Ensure the theme toggle doesn't overlap other elements */
+    /* Position theme toggle on left */
     .header-right {
         position: absolute;
-        right: 70px;
-        top: 20px;
+        left: 15px;
+        top: 15px;
         transform: none;
         display: flex;
         align-items: center;
+        gap: 5px;
     }
     
+    /* Match theme toggle styling to hamburger menu */
     .theme-toggle {
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
         background-color: rgba(255, 255, 255, 0.9);
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
-    /* Fix hero image display for mobile */
+    /* Fix header height and padding */
+    header {
+        padding: 10px 15px;
+        height: 70px;
+        overflow: visible;
+    }
+    
+    /* Ensure main navigation menu has proper styling */
+    .main-nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-color);
+        z-index: 1000;
+        padding: 0;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s ease;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .main-nav.active {
+        height: auto;
+        padding: 20px 0;
+        overflow: auto;
+    }
+    
+    .main-nav ul {
+        padding: 0 20px;
+    }
+    
+    .main-nav li {
+        margin: 15px 0;
+        text-align: center;
+    }
+    
+    .main-nav a {
+        font-size: 20px;
+        display: block;
+        padding: 10px 0;
+    }
+    
+    /* Style CTA in mobile menu to match theme */
+    .mobile-cta {
+        margin: 20px auto;
+        text-align: center;
+        padding: 0 20px;
+    }
+    
+    .mobile-cta .header-cta-button {
+        display: inline-block;
+        width: 80%;
+        font-family: 'Space Mono', monospace;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        padding: 12px 20px;
+        background-color: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        box-shadow: 0 4px 8px rgba(209, 0, 0, 0.2);
+    }
+    
+    /* Fix hero image display on mobile */
+    main {
+        padding-top: 70px;
+    }
+    
     .hero {
-        padding-top: 80px;
+        padding-top: 0;
+        padding-bottom: 0;
     }
     
     .hero-card {
         flex-direction: column;
-        align-items: center;
         padding: 0;
-        overflow: hidden;
+        border-radius: 0;
+        margin: 0 -15px;
+        overflow: visible;
+        background-color: transparent;
     }
     
+    /* Make hero image visible */
     .hero-image {
         width: 100%;
-        height: 250px;
-        order: -1; /* Place image at the top on mobile */
-        margin-bottom: 0;
-        margin-top: 0;
+        height: 180px;
+        margin: 0;
         overflow: hidden;
+        border-radius: 0;
+        display: block !important;
     }
     
     .hero-img {
@@ -1135,44 +1238,68 @@ header.scrolled .logo-subtitle {
         height: 100%;
         object-fit: cover;
         object-position: center;
+        opacity: 1 !important;
+        display: block !important;
+        visibility: visible !important;
     }
     
+    /* Style hero content for better readability */
     .hero-content {
         padding: 25px 20px;
         text-align: center;
-        width: 100%;
+        background-color: var(--card-bg);
+        border-radius: 15px;
+        margin: -30px 15px 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-content h1 {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+    
+    .hero-content .description {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 20px;
     }
     
     .hero-ctas {
         justify-content: center;
     }
+    
+    /* Add some margin to top sections to avoid overlap */
+    .solutions-content {
+        margin-top: 15px;
+    }
 }
 
 /* Additional fixes for smaller mobile screens */
 @media screen and (max-width: 480px) {
-    .header-right {
-        right: 65px;
+    .header-logo {
+        font-size: 22px;
     }
     
-    .mobile-nav-toggle {
-        width: 38px;
-        height: 38px;
+    .logo-subtitle {
+        font-size: 9px;
     }
     
-    .theme-toggle {
-        width: 36px;
-        height: 36px;
+    .hero-content h1 {
+        font-size: 28px;
+    }
+    
+    .hero-content .description {
+        font-size: 13px;
     }
     
     .hero-image {
-        height: 200px;
+        height: 160px;
     }
 }
 
-/* Specific Fix: When mobile menu is active, ensure proper display */
-.main-nav.active {
-    z-index: 1005;
-    background-color: var(--bg-color);
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    padding-top: 20px;
+/* Make the footer "Book Expert" link scroll to expert guidance section */
+.consult-expert-link {
+    cursor: pointer;
 } 

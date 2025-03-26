@@ -722,4 +722,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Smooth scroll for footer expert session link
+    const expertSessionLink = document.querySelector('.consult-expert-link');
+    
+    if (expertSessionLink) {
+        expertSessionLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetSection = document.getElementById('book-consultation');
+            
+            if (targetSection) {
+                // Scroll to the section smoothly
+                targetSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // If we have a collapsible form, expand it
+                const formToggle = targetSection.querySelector('.toggle-form-btn');
+                const formContainer = targetSection.querySelector('.collapsible-content');
+                
+                if (formToggle && formContainer && !formContainer.classList.contains('expanded')) {
+                    formToggle.setAttribute('aria-expanded', 'true');
+                    formContainer.classList.add('expanded');
+                    formToggle.querySelector('.btn-text').textContent = 'Hide consultation form';
+                }
+            }
+        });
+    }
 });
