@@ -767,36 +767,143 @@
     border-color: transparent;
 }
 
-/* Responsive adjustments for header logo */
+/* Updated header-right section for better mobile layout */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Improved theme switcher styling */
+.theme-switcher {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    color: var(--text-primary);
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.theme-icon-light,
+.theme-icon-dark {
+    font-size: 22px;
+    transition: all 0.3s ease;
+}
+
+/* Enhanced Header CTA Button */
+.header-cta-button {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--white);
+    background: var(--primary);
+    padding: 10px 18px;
+    border-radius: 6px;
+    transition: var(--transition);
+    box-shadow: 0 4px 8px rgba(209, 0, 0, 0.2);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.header-cta-button:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(209, 0, 0, 0.25);
+}
+
+/* Responsive adjustments for header logo and controls */
 @media screen and (max-width: 768px) {
     .header-logo {
-        font-size: 26px;
+        font-size: 24px; /* Smaller font for better fit */
         text-align: center;
     }
     
     .header-logo .dot {
-        font-size: 26px;
+        font-size: 24px;
     }
     
     .logo-subtitle {
-        font-size: 11px;
+        font-size: 10px; /* Smaller subtitle text */
         text-align: center;
         max-width: 100%;
-        margin: 5px auto 0;
+        margin: 2px auto 0; /* Reduced margin */
         border-left: none;
         padding-left: 0;
+        line-height: 1.2; /* Tighter line height */
     }
     
     .logo-container {
         padding: 5px 0;
         align-items: center;
         width: 100%;
+        max-width: 180px; /* Limit width on mobile */
+        margin: 0 auto 0 0; /* Push to left side */
     }
     
     .logo-container:hover .logo-subtitle {
         transform: none;
         border-left: none;
         padding-left: 0;
+    }
+    
+    /* Improved header layout on mobile */
+    header {
+        padding: 8px 15px;
+    }
+    
+    .header-right {
+        position: absolute;
+        right: 50px; /* Make room for mobile toggle */
+        top: 50%;
+        transform: translateY(-50%);
+        gap: 5px;
+    }
+    
+    /* Theme toggle adjustments for mobile */
+    .theme-toggle {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .theme-icon-light,
+    .theme-icon-dark {
+        font-size: 18px;
+    }
+    
+    /* Hide CTA button properly on mobile */
+    .header-cta-button {
+        display: none;
+    }
+    
+    /* Add a mobile CTA button in the expanded mobile menu */
+    .main-nav.active .mobile-cta {
+        display: block;
+        margin: 15px auto;
+        text-align: center;
+    }
+    
+    /* Mobile menu needs more room */
+    .mobile-nav-toggle {
+        z-index: 1001;
+        position: absolute;
+        right: 15px;
     }
 }
 
@@ -915,4 +1022,32 @@ header.scrolled .logo-subtitle {
     font-size: 14px;
     color: var(--text-secondary);
     margin-bottom: 20px;
+}
+
+/* Mobile CTA specific styles */
+.mobile-cta {
+    display: none; /* Hidden by default */
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-cta {
+        display: block;
+        margin-top: 15px;
+    }
+    
+    .mobile-cta .header-cta-button {
+        display: inline-block;
+        width: 80%;
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    /* Ensure the CTA button is only visible when mobile menu is active */
+    .main-nav .mobile-cta {
+        display: none;
+    }
+    
+    .main-nav.active .mobile-cta {
+        display: block;
+    }
 } 
