@@ -1,5 +1,19 @@
 // Simplified script with minimal animations
 document.addEventListener('DOMContentLoaded', function() {
+    // Scroll indicator functionality
+    const scrollIndicator = document.getElementById('scroll-down');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            const whatWeDoSection = document.getElementById('what-we-do');
+            if (whatWeDoSection) {
+                whatWeDoSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    }
+    
     // Header scroll effect
     const header = document.querySelector('header');
     
