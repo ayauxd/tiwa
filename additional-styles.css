@@ -831,79 +831,165 @@
 /* Responsive adjustments for header logo and controls */
 @media screen and (max-width: 768px) {
     .header-logo {
-        font-size: 24px; /* Smaller font for better fit */
-        text-align: center;
-    }
-    
-    .header-logo .dot {
         font-size: 24px;
+        text-align: center;
+        margin: 0 auto;
     }
     
     .logo-subtitle {
-        font-size: 10px; /* Smaller subtitle text */
+        font-size: 10px;
         text-align: center;
         max-width: 100%;
-        margin: 2px auto 0; /* Reduced margin */
+        margin: 2px auto 0;
         border-left: none;
         padding-left: 0;
-        line-height: 1.2; /* Tighter line height */
+        line-height: 1.2;
     }
     
-    .logo-container {
-        padding: 5px 0;
+    /* Position hamburger menu on right, toggle on left */
+    .mobile-nav-toggle {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        width: 100%;
-        max-width: 180px; /* Limit width on mobile */
-        margin: 0 auto 0 0; /* Push to left side */
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 8px;
+        z-index: 1010;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
-    .logo-container:hover .logo-subtitle {
-        transform: none;
-        border-left: none;
-        padding-left: 0;
+    /* Toggle bar styling */
+    .toggle-bar {
+        width: 24px;
+        height: 3px;
+        margin: 2px 0;
+        background-color: var(--text-primary);
+        border-radius: 2px;
+        transition: all 0.3s ease;
     }
     
-    /* Improved header layout on mobile */
-    header {
-        padding: 8px 15px;
-    }
-    
+    /* Position theme toggle on left */
     .header-right {
         position: absolute;
-        right: 50px; /* Make room for mobile toggle */
-        top: 50%;
-        transform: translateY(-50%);
+        left: 15px;
+        top: 15px;
+        transform: none;
+        display: flex;
+        align-items: center;
         gap: 5px;
     }
     
-    /* Theme toggle adjustments for mobile */
+    /* Theme toggle styling */
     .theme-toggle {
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
-    .theme-icon-light,
-    .theme-icon-dark {
-        font-size: 18px;
+    /* Main navigation styles */
+    .main-nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-color);
+        z-index: 1000;
+        padding: 0;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.3s ease;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     }
     
-    /* Hide CTA button properly on mobile */
-    .header-cta-button {
-        display: none;
+    .main-nav.active {
+        height: auto;
+        padding: 20px 0;
+        overflow: auto;
     }
     
-    /* Add a mobile CTA button in the expanded mobile menu */
-    .main-nav.active .mobile-cta {
-        display: block;
-        margin: 15px auto;
+    .main-nav ul {
+        padding: 0 20px;
+    }
+    
+    .main-nav li {
+        margin: 15px 0;
         text-align: center;
     }
     
-    /* Mobile menu needs more room */
-    .mobile-nav-toggle {
-        z-index: 1001;
-        position: absolute;
-        right: 15px;
+    .main-nav a {
+        font-size: 20px;
+        display: block;
+        padding: 10px 0;
+    }
+    
+    /* Mobile CTA styling */
+    .mobile-cta {
+        margin: 20px auto;
+        text-align: center;
+        padding: 0 20px;
+        display: none;
+    }
+    
+    .main-nav.active .mobile-cta {
+        display: block;
+    }
+    
+    .mobile-cta .header-cta-button {
+        display: inline-block;
+        width: 80%;
+        font-family: 'Space Mono', monospace;
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        padding: 12px 20px;
+        background-color: var(--primary);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        box-shadow: 0 4px 8px rgba(209, 0, 0, 0.2);
+    }
+    
+    /* Hero image styling */
+    .hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        opacity: 1 !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+    
+    /* Improved hero content spacing */
+    .hero-content h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        line-height: 1.2;
+    }
+    
+    .hero-content .description {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+    
+    .hero-ctas {
+        justify-content: center;
     }
 }
 
@@ -1052,8 +1138,13 @@ header.scrolled .logo-subtitle {
     }
 }
 
-/* Mobile view fixes for header, hero image, and navigation */
+/* Mobile view fixes for header positioning and section lines */
 @media screen and (max-width: 768px) {
+    /* Increase main padding to ensure header is on white space */
+    main {
+        padding-top: 90px; /* Increased to ensure header doesn't overlap hero */
+    }
+    
     /* Center logo in mobile view */
     .logo-container {
         padding: 5px 0;
@@ -1066,240 +1157,156 @@ header.scrolled .logo-subtitle {
         transform: translateX(-50%);
         top: 15px;
         max-width: 180px;
-    }
-    
-    .header-logo {
-        font-size: 24px;
-        text-align: center;
-        margin: 0 auto;
-    }
-    
-    .logo-subtitle {
-        font-size: 10px;
-        text-align: center;
-        max-width: 100%;
-        margin: 2px auto 0;
-        border-left: none;
-        padding-left: 0;
-        line-height: 1.2;
-    }
-    
-    /* Position hamburger menu on right, toggle on left */
-    .mobile-nav-toggle {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        padding: 8px;
-        z-index: 1010;
-        cursor: pointer;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    /* Improved toggle bar styling */
-    .toggle-bar {
-        width: 24px;
-        height: 3px;
-        margin: 2px 0;
-        background-color: var(--text-primary);
-        border-radius: 2px;
-        transition: all 0.3s ease;
-    }
-    
-    /* Position theme toggle on left */
-    .header-right {
-        position: absolute;
-        left: 15px;
-        top: 15px;
-        transform: none;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-    
-    /* Match theme toggle styling to hamburger menu */
-    .theme-toggle {
-        width: 40px;
-        height: 40px;
-        background-color: rgba(255, 255, 255, 0.9);
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    /* Fix header height and padding */
-    header {
-        padding: 10px 15px;
-        height: 70px;
-        overflow: visible;
-    }
-    
-    /* Ensure main navigation menu has proper styling */
-    .main-nav {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        background-color: var(--bg-color);
-        z-index: 1000;
-        padding: 0;
-        height: 0;
-        overflow: hidden;
-        transition: height 0.3s ease;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    .main-nav.active {
-        height: auto;
-        padding: 20px 0;
-        overflow: auto;
-    }
-    
-    .main-nav ul {
-        padding: 0 20px;
-    }
-    
-    .main-nav li {
-        margin: 15px 0;
-        text-align: center;
-    }
-    
-    .main-nav a {
-        font-size: 20px;
-        display: block;
-        padding: 10px 0;
-    }
-    
-    /* Style CTA in mobile menu to match theme */
-    .mobile-cta {
-        margin: 20px auto;
-        text-align: center;
-        padding: 0 20px;
-    }
-    
-    .mobile-cta .header-cta-button {
-        display: inline-block;
-        width: 80%;
-        font-family: 'Space Mono', monospace;
-        font-size: 16px;
-        font-weight: 700;
-        text-align: center;
-        padding: 12px 20px;
-        background-color: var(--primary);
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        box-shadow: 0 4px 8px rgba(209, 0, 0, 0.2);
-    }
-    
-    /* Fix hero image display on mobile */
-    main {
-        padding-top: 70px;
-    }
-    
-    .hero {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    
-    .hero-card {
-        flex-direction: column;
-        padding: 0;
-        border-radius: 0;
-        margin: 0 -15px;
-        overflow: visible;
+        z-index: 1010; /* Ensure it's above other elements */
         background-color: transparent;
     }
     
-    /* Make hero image visible */
-    .hero-image {
-        width: 100%;
-        height: 180px;
-        margin: 0;
-        overflow: hidden;
-        border-radius: 0;
-        display: block !important;
-    }
-    
-    .hero-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        opacity: 1 !important;
-        display: block !important;
-        visibility: visible !important;
+    /* Ensure header has solid background on mobile */
+    header {
+        background-color: var(--bg-color);
+        backdrop-filter: blur(8px);
+        height: 70px;
     }
     
     /* Style hero content for better readability */
     .hero-content {
+        margin-top: 0; /* Remove negative margin */
         padding: 25px 20px;
         text-align: center;
         background-color: var(--card-bg);
-        border-radius: 15px;
-        margin: -30px 15px 15px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 0; /* Remove border radius */
+        margin: 0;
+        box-shadow: none;
         position: relative;
         z-index: 2;
     }
     
-    .hero-content h1 {
-        font-size: 32px;
-        margin-bottom: 10px;
+    /* Fix hero card to remove any potential overlap */
+    .hero-card {
+        margin: 0;
+        padding: 0;
     }
     
-    .hero-content .description {
-        font-size: 14px;
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
-    
-    .hero-ctas {
-        justify-content: center;
-    }
-    
-    /* Add some margin to top sections to avoid overlap */
-    .solutions-content {
-        margin-top: 15px;
-    }
-}
-
-/* Additional fixes for smaller mobile screens */
-@media screen and (max-width: 480px) {
-    .header-logo {
-        font-size: 22px;
-    }
-    
-    .logo-subtitle {
-        font-size: 9px;
-    }
-    
-    .hero-content h1 {
-        font-size: 28px;
-    }
-    
-    .hero-content .description {
-        font-size: 13px;
-    }
-    
+    /* Adjust hero image container */
     .hero-image {
-        height: 160px;
+        width: 100%;
+        height: 220px;
+        margin: 0;
+        overflow: hidden;
+        border-radius: 0;
     }
 }
 
-/* Make the footer "Book Expert" link scroll to expert guidance section */
+/* Remove red decorative lines from sections while keeping them on logo */
+.section-title::after,
+.card-content::after,
+h1::after,
+h2::after,
+h3::after,
+.section-overline::after,
+.blog-title::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Keep the red line under TIWA.AI logo */
+.header-logo::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), rgba(209, 0, 0, 0.1));
+    border-radius: 1.5px;
+    transform: scaleX(0.7);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+/* Simplified hero and hide underline for headings in hero */
+.hero-content h1::after {
+    display: none !important;
+}
+
+/* Dynamic responsive text sizing */
+html {
+    font-size: 16px; /* Base font size */
+}
+
+body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+p, li, a {
+    font-size: 1rem;
+}
+
+/* Responsive typography */
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 15px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+    
+    h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 14px;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+    }
+    
+    .description {
+        font-size: 0.9rem;
+    }
+}
+
+/* Remove red underlines from Simplified in hero */
+.highlight {
+    position: relative;
+    color: var(--primary);
+}
+
+.highlight::after {
+    display: none !important;
+}
+
+/* Footer link cursor fix */
 .consult-expert-link {
     cursor: pointer;
 } 
