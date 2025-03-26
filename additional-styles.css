@@ -1309,4 +1309,139 @@ p, li, a {
 /* Footer link cursor fix */
 .consult-expert-link {
     cursor: pointer;
+}
+
+/* Whitelist form styles */
+.whitelist-form-container {
+    margin: 20px 0;
+    padding: 0;
+}
+
+.whitelist-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.whitelist-form .form-group {
+    margin-bottom: 15px;
+}
+
+.whitelist-form label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.whitelist-form input,
+.whitelist-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--light-gray);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    color: var(--text-primary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whitelist-form input:focus,
+.whitelist-form textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(209, 0, 0, 0.1);
+}
+
+.whitelist-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.whitelist-form .form-submit {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.whitelist-form .form-note {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* Fix for mobile view "Begin AI Integration" button */
+@media screen and (max-width: 768px) {
+    /* Fix mobile header to prevent CTA from interfering with logo and nav */
+    header {
+        padding: 10px 15px;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    
+    /* Make absolutely sure the header CTA is hidden in mobile view */
+    .header-right .header-cta-button {
+        display: none !important;
+    }
+    
+    /* Keep mobile CTA in the nav menu only */
+    .mobile-cta {
+        display: none !important;
+    }
+    
+    .main-nav.active .mobile-cta {
+        display: block !important;
+        margin: 20px auto;
+    }
+    
+    /* Center logo in mobile view */
+    .logo-container {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 15px;
+        width: auto;
+        max-width: 180px;
+        z-index: 100;
+        padding: 0;
+    }
+    
+    /* Keep hamburger menu and theme toggle properly positioned */
+    .mobile-nav-toggle {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        z-index: 200;
+    }
+    
+    .header-right {
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        z-index: 200;
+    }
+    
+    /* Ensure mobile navigation opens without overlapping content */
+    .main-nav {
+        position: fixed;
+        top: 70px;
+        z-index: 90;
+    }
+}
+
+/* Updated chat greeting/subgreeting styles */
+.chat-greeting {
+    margin-bottom: 10px;
+}
+
+.chat-subgreeting {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.5;
 } 
