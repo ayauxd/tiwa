@@ -1050,4 +1050,129 @@ header.scrolled .logo-subtitle {
     .main-nav.active .mobile-cta {
         display: block;
     }
+}
+
+/* Mobile view fixes for hamburger menu, theme toggle, and hero image */
+@media screen and (max-width: 768px) {
+    /* Improved hamburger menu visibility and placement */
+    .mobile-nav-toggle {
+        position: absolute;
+        right: 15px;
+        top: 20px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        padding: 8px;
+        z-index: 1010;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .toggle-bar {
+        width: 24px;
+        height: 3px;
+        margin: 2px 0;
+        background-color: var(--text-primary);
+        border-radius: 2px;
+    }
+    
+    /* Fix header layout for mobile */
+    header {
+        padding: 10px 15px;
+        height: auto;
+        max-height: 70px;
+        overflow: visible;
+    }
+    
+    /* Ensure the theme toggle doesn't overlap other elements */
+    .header-right {
+        position: absolute;
+        right: 70px;
+        top: 20px;
+        transform: none;
+        display: flex;
+        align-items: center;
+    }
+    
+    .theme-toggle {
+        width: 38px;
+        height: 38px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Fix hero image display for mobile */
+    .hero {
+        padding-top: 80px;
+    }
+    
+    .hero-card {
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        overflow: hidden;
+    }
+    
+    .hero-image {
+        width: 100%;
+        height: 250px;
+        order: -1; /* Place image at the top on mobile */
+        margin-bottom: 0;
+        margin-top: 0;
+        overflow: hidden;
+    }
+    
+    .hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .hero-content {
+        padding: 25px 20px;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .hero-ctas {
+        justify-content: center;
+    }
+}
+
+/* Additional fixes for smaller mobile screens */
+@media screen and (max-width: 480px) {
+    .header-right {
+        right: 65px;
+    }
+    
+    .mobile-nav-toggle {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .theme-toggle {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .hero-image {
+        height: 200px;
+    }
+}
+
+/* Specific Fix: When mobile menu is active, ensure proper display */
+.main-nav.active {
+    z-index: 1005;
+    background-color: var(--bg-color);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: 20px;
 } 
