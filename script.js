@@ -743,4 +743,479 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // UX Alignment Agent
+    const isDebugMode = window.location.search.includes('debug=true') || 
+                        window.location.hostname === 'localhost' || 
+                        window.location.hostname.includes('127.0.0.1');
+    
+    if (isDebugMode) {
+        console.log('🔍 UX Alignment Agent active');
+        
+        // Create inspector UI
+        const inspector = document.createElement('div');
+        inspector.className = 'ux-inspector';
+        inspector.innerHTML = `
+            <div class="ux-inspector-header">
+                <h3>UX Alignment Agent</h3>
+                <button class="close-inspector">×</button>
+            </div>
+            <div class="ux-inspector-body">
+                <div class="device-selector">
+                    <button class="device-btn active" data-device="desktop">Desktop</button>
+                    <button class="device-btn" data-device="tablet">Tablet</button>
+                    <button class="device-btn" data-device="mobile">Mobile</button>
+                </div>
+                <div class="issues-container">
+                    <div class="issues-list"></div>
+                </div>
+                <button class="run-check-btn">Run Alignment Check</button>
+            </div>
+        `;
+        
+        document.body.appendChild(inspector);
+        
+        // Style the inspector
+        const style = document.createElement('style');
+        style.textContent = `
+            .ux-inspector {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 320px;
+                background: #fff;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                z-index: 9999;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            }
+            .ux-inspector-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 15px;
+                border-bottom: 1px solid #eee;
+                background: #f8f8f8;
+                border-radius: 8px 8px 0 0;
+            }
+            .ux-inspector-header h3 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 600;
+                color: #333;
+            }
+            .close-inspector {
+                background: none;
+                border: none;
+                font-size: 20px;
+                cursor: pointer;
+                color: #777;
+            }
+            .ux-inspector-body {
+                padding: 15px;
+            }
+            .device-selector {
+                display: flex;
+                margin-bottom: 15px;
+                border: 1px solid #eee;
+                border-radius: 6px;
+                overflow: hidden;
+            }
+            .device-btn {
+                flex: 1;
+                padding: 8px 0;
+                border: none;
+                background: #f5f5f5;
+                cursor: pointer;
+                font-size: 14px;
+                transition: all 0.2s;
+            }
+            .device-btn.active {
+                background: #e10000;
+                color: white;
+                font-weight: 500;
+            }
+            .issues-container {
+                max-height: 200px;
+                overflow-y: auto;
+                border: 1px solid #eee;
+                border-radius: 6px;
+                padding: 10px;
+                margin-bottom: 15px;
+                font-size: 14px;
+            }
+            .issue-item {
+                padding: 8px 0;
+                border-bottom: 1px solid #eee;
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .issue-item:last-child {
+                border-bottom: none;
+            }
+            .issue-type {
+                min-width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+                font-size: 12px;
+                color: white;
+            }
+            .issue-error {
+                background: #e74c3c;
+            }
+            .issue-warning {
+                background: #f39c12;
+            }
+            .issue-info {
+                background: #3498db;
+            }
+            .issue-success {
+                background: #2ecc71;
+            }
+            .issue-text {
+                flex: 1;
+                font-size: 13px;
+                line-height: 1.4;
+            }
+            .run-check-btn {
+                width: 100%;
+                padding: 10px;
+                background: #333;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.2s;
+            }
+            .run-check-btn:hover {
+                background: #222;
+            }
+            .issue-fix-btn {
+                font-size: 12px;
+                padding: 2px 6px;
+                background: #f8f8f8;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-top: 4px;
+                display: inline-block;
+            }
+        `;
+        
+        document.head.appendChild(style);
+        
+        // Close inspector functionality
+        document.querySelector('.close-inspector').addEventListener('click', function() {
+            inspector.style.display = 'none';
+        });
+        
+        // Device switching
+        const deviceBtns = document.querySelectorAll('.device-btn');
+        deviceBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                deviceBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                checkDeviceSpecificIssues(this.dataset.device);
+            });
+        });
+        
+        // Run alignment check
+        document.querySelector('.run-check-btn').addEventListener('click', function() {
+            const activeDevice = document.querySelector('.device-btn.active').dataset.device;
+            runFullCheck(activeDevice);
+        });
+        
+        // Initial check on load
+        setTimeout(() => {
+            runFullCheck('desktop');
+        }, 1000);
+        
+        // Functions to check for common UX issues
+        function runFullCheck(device) {
+            const issuesList = document.querySelector('.issues-list');
+            issuesList.innerHTML = '<div class="checking-message">Checking alignment issues...</div>';
+            
+            setTimeout(() => {
+                issuesList.innerHTML = '';
+                
+                // Run general checks
+                checkGeneralIssues();
+                
+                // Run device specific checks
+                checkDeviceSpecificIssues(device);
+                
+                // Add summary message at the end
+                const issueCount = document.querySelectorAll('.issue-item').length;
+                if (issueCount === 0) {
+                    addIssue('success', 'Great job! No alignment issues detected for ' + device + ' view.');
+                } else {
+                    addIssue('info', `Found ${issueCount} potential alignment issues to review.`);
+                }
+            }, 500);
+        }
+        
+        function checkGeneralIssues() {
+            // Check for common UX issues regardless of device
+            
+            // Check for large images that might slow loading
+            const images = document.querySelectorAll('img');
+            if (images.length > 0) {
+                let unreasonablyLargeImages = 0;
+                images.forEach(img => {
+                    if (img.complete && img.naturalWidth > 1500) {
+                        unreasonablyLargeImages++;
+                    }
+                });
+                
+                if (unreasonablyLargeImages > 0) {
+                    addIssue('warning', `Found ${unreasonablyLargeImages} oversized images that may affect performance.`);
+                }
+            }
+            
+            // Check for color contrast issues
+            const darkTextOnLightBg = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6');
+            darkTextOnLightBg.forEach(el => {
+                const color = window.getComputedStyle(el).color;
+                const bgColor = window.getComputedStyle(el).backgroundColor;
+                if (bgColor !== 'rgba(0, 0, 0, 0)' && !hasGoodContrast(color, bgColor)) {
+                    addIssue('warning', `Low contrast text found in element: ${el.tagName.toLowerCase()}.`, el);
+                }
+            });
+            
+            // Check for consistent font usage
+            const bodyFontFamily = window.getComputedStyle(document.body).fontFamily;
+            const allElements = document.querySelectorAll('*');
+            let inconsistentFonts = 0;
+            
+            allElements.forEach(el => {
+                const fontFamily = window.getComputedStyle(el).fontFamily;
+                if (fontFamily && fontFamily !== bodyFontFamily && 
+                    !['BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'CODE', 'PRE'].includes(el.tagName) &&
+                    !el.closest('.header-logo') && 
+                    !el.closest('.logo-subtitle')) {
+                    inconsistentFonts++;
+                }
+            });
+            
+            if (inconsistentFonts > 5) {
+                addIssue('info', 'Detected inconsistent font usage across elements.');
+            }
+        }
+        
+        function checkDeviceSpecificIssues(device) {
+            if (device === 'mobile') {
+                // Mobile-specific checks
+                
+                // Check tap target sizes
+                const tappableElements = document.querySelectorAll('a, button, input, select, textarea');
+                let smallTapTargets = 0;
+                
+                tappableElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if ((rect.width < 44 || rect.height < 44) && 
+                        window.getComputedStyle(el).display !== 'none' &&
+                        !el.closest('.ux-inspector')) {
+                        smallTapTargets++;
+                    }
+                });
+                
+                if (smallTapTargets > 0) {
+                    addIssue('error', `Found ${smallTapTargets} tap targets too small for mobile use (< 44px).`);
+                }
+                
+                // Check font sizes for readability
+                const textElements = document.querySelectorAll('p, span, label, li, td, th');
+                let smallFonts = 0;
+                
+                textElements.forEach(el => {
+                    const fontSize = parseInt(window.getComputedStyle(el).fontSize);
+                    if (fontSize < 14 && window.getComputedStyle(el).display !== 'none') {
+                        smallFonts++;
+                    }
+                });
+                
+                if (smallFonts > 0) {
+                    addIssue('warning', `Found ${smallFonts} text elements with small font size (< 14px) that may be hard to read on mobile.`);
+                }
+                
+                // Check for horizontal overflow
+                const bodyWidth = document.body.clientWidth;
+                const allElements = document.querySelectorAll('*');
+                let overflowingElements = 0;
+                
+                allElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.right > bodyWidth + 5 && window.getComputedStyle(el).display !== 'none') {
+                        overflowingElements++;
+                    }
+                });
+                
+                if (overflowingElements > 0) {
+                    addIssue('error', `Found ${overflowingElements} elements causing horizontal overflow on mobile.`);
+                }
+                
+                // Check for proper form fields
+                const formFields = document.querySelectorAll('input, select, textarea');
+                let improperFields = 0;
+                
+                formFields.forEach(el => {
+                    const padding = parseInt(window.getComputedStyle(el).padding);
+                    if (padding < 10) {
+                        improperFields++;
+                    }
+                });
+                
+                if (improperFields > 0) {
+                    addIssue('warning', `Found ${improperFields} form fields with insufficient padding for touch input.`);
+                }
+                
+            } else if (device === 'tablet') {
+                // Tablet-specific checks
+                
+                // Check for proper padding on elements
+                const contentDivs = document.querySelectorAll('section, .card, .container > div');
+                let insufficientPadding = 0;
+                
+                contentDivs.forEach(el => {
+                    const paddingLeft = parseInt(window.getComputedStyle(el).paddingLeft);
+                    const paddingRight = parseInt(window.getComputedStyle(el).paddingRight);
+                    if ((paddingLeft < 15 || paddingRight < 15) && 
+                        window.getComputedStyle(el).display !== 'none') {
+                        insufficientPadding++;
+                    }
+                });
+                
+                if (insufficientPadding > 3) {
+                    addIssue('warning', `Found ${insufficientPadding} container elements with insufficient padding for tablet view.`);
+                }
+                
+                // Check for grid issues
+                const gridContainers = document.querySelectorAll('.benefits-grid, .card-grid, .blog-grid');
+                gridContainers.forEach(grid => {
+                    const columns = window.getComputedStyle(grid).gridTemplateColumns;
+                    // If using repeat with fr units, it should adapt well
+                    if (!columns.includes('fr') && !columns.includes('repeat')) {
+                        addIssue('warning', 'Found grid container with fixed width columns that may not adapt well to tablet view.');
+                    }
+                });
+                
+            } else if (device === 'desktop') {
+                // Desktop-specific checks
+                
+                // Check for proper max-width on large screens
+                const mainContainer = document.querySelector('.container');
+                if (mainContainer) {
+                    const maxWidth = window.getComputedStyle(mainContainer).maxWidth;
+                    if (maxWidth === 'none' || parseInt(maxWidth) > 1600) {
+                        addIssue('warning', 'Main container lacks appropriate max-width which may cause readability issues on large screens.');
+                    }
+                }
+                
+                // Check for proper line lengths
+                const paragraphs = document.querySelectorAll('p');
+                let tooWideParagraphs = 0;
+                
+                paragraphs.forEach(p => {
+                    const width = p.clientWidth;
+                    if (width > 900 && !p.closest('.ux-inspector')) {
+                        tooWideParagraphs++;
+                    }
+                });
+                
+                if (tooWideParagraphs > 0) {
+                    addIssue('warning', `Found ${tooWideParagraphs} paragraphs with excessive line length (> 900px) which may reduce readability.`);
+                }
+                
+                // Check for proper button sizes
+                const buttons = document.querySelectorAll('button, .cta-button, .btn');
+                let tooSmallButtons = 0;
+                
+                buttons.forEach(btn => {
+                    const height = btn.clientHeight;
+                    if (height < 40 && !btn.closest('.ux-inspector')) {
+                        tooSmallButtons++;
+                    }
+                });
+                
+                if (tooSmallButtons > 0) {
+                    addIssue('info', `Found ${tooSmallButtons} buttons smaller than recommended size for good UX.`);
+                }
+            }
+        }
+        
+        function addIssue(type, message, element = null) {
+            const issuesList = document.querySelector('.issues-list');
+            const issueItem = document.createElement('div');
+            issueItem.className = 'issue-item';
+            
+            const typeClass = {
+                'error': 'issue-error',
+                'warning': 'issue-warning',
+                'info': 'issue-info',
+                'success': 'issue-success'
+            };
+            
+            const typeIcon = {
+                'error': '!',
+                'warning': '⚠',
+                'info': 'i',
+                'success': '✓'
+            };
+            
+            let issueHTML = `
+                <div class="issue-type ${typeClass[type]}">${typeIcon[type]}</div>
+                <div class="issue-text">${message}</div>
+            `;
+            
+            if (element && type !== 'success' && type !== 'info') {
+                issueHTML += `<button class="issue-fix-btn">Fix</button>`;
+            }
+            
+            issueItem.innerHTML = issueHTML;
+            issuesList.appendChild(issueItem);
+            
+            // Add event listener for fix button if element is provided
+            if (element) {
+                const fixBtn = issueItem.querySelector('.issue-fix-btn');
+                if (fixBtn) {
+                    fixBtn.addEventListener('click', function() {
+                        // Highlight the element
+                        const originalOutline = element.style.outline;
+                        const originalPosition = element.style.position;
+                        const originalZIndex = element.style.zIndex;
+                        
+                        element.style.outline = '2px solid #e74c3c';
+                        element.style.position = 'relative';
+                        element.style.zIndex = '9999';
+                        
+                        // Scroll to the element
+                        element.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                        
+                        // Reset after a few seconds
+                        setTimeout(() => {
+                            element.style.outline = originalOutline;
+                            element.style.position = originalPosition;
+                            element.style.zIndex = originalZIndex;
+                        }, 3000);
+                    });
+                }
+            }
+        }
+        
+        function hasGoodContrast(color1, color2) {
+            // This is a simplified contrast check
+            // For a proper check, convert colors to luminance and calculate contrast ratio
+            return true; // Placeholder - would need proper color conversion logic
+        }
+    }
 });

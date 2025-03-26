@@ -1522,4 +1522,209 @@ p, li, a {
     color: var(--text-secondary);
     margin-bottom: 20px;
     line-height: 1.5;
+}
+
+/* Updated CTA caption styling */
+.hero-ctas .cta-caption {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 12px;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.hero-ctas .cta-caption strong {
+    color: var(--text-secondary);
+}
+
+/* Improved button styling */
+.cta-button.pulse-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.cta-button.pulse-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(209, 0, 0, 0.25);
+}
+
+.cta-button.pulse-button::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 25%;
+    height: 100%;
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    transform: scale(0, 1);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.cta-button.pulse-button:hover::after {
+    transform: scale(1, 1);
+}
+
+/* UX Alignment Improvements */
+
+/* Base Responsive Improvements */
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Desktop UX improvements (> 1200px) */
+@media screen and (min-width: 1200px) {
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .hero-content {
+        max-width: 580px;
+        padding-right: 30px;
+    }
+    
+    .section-description {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Tablet UX improvements (768px-1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .header-logo {
+        font-size: 32px;
+    }
+    
+    .logo-subtitle {
+        font-size: 12px;
+    }
+    
+    .header-cta-button {
+        font-size: 13px;
+        padding: 8px 16px;
+    }
+    
+    .hero-content {
+        padding: 25px;
+    }
+    
+    .hero-content h1 {
+        font-size: 36px;
+    }
+    
+    .benefits-grid {
+        gap: 20px;
+    }
+}
+
+/* Mobile UX refinements */
+@media screen and (max-width: 767px) {
+    /* Fix bottom padding/margin for better spacing */
+    section {
+        padding-bottom: 40px;
+        margin-bottom: 20px;
+    }
+    
+    /* Ensure hero CTA is properly styled on mobile */
+    .hero-ctas {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .hero-ctas .cta-button {
+        min-width: 220px;
+        text-align: center;
+        padding: 14px 20px;
+        font-size: 16px;
+    }
+    
+    .hero-ctas .cta-caption {
+        font-size: 0.8rem;
+        margin-top: 10px;
+        text-align: center;
+        max-width: 90%;
+    }
+    
+    /* Adjust chat interface for better mobile experience */
+    .modern-chat-interface {
+        padding: 25px 15px;
+    }
+    
+    .chat-suggestions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .chat-suggestion-btn {
+        width: 100%;
+        height: auto;
+        padding: 12px 15px;
+        white-space: normal;
+        text-align: center;
+    }
+    
+    /* Improved header spacing */
+    .header-logo {
+        margin-bottom: 0;
+    }
+    
+    /* Ensure form inputs are easily tappable */
+    input, select, textarea, button {
+        font-size: 16px !important; /* Prevents iOS zoom on focus */
+        padding: 12px !important;
+    }
+    
+    /* Ensure tap targets meet accessibility standards */
+    .blog-link, .footer-social a, .chat-action-button {
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Fix sticky header issues */
+    header {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+    
+    /* Fix mobile menu activation area */
+    .mobile-nav-toggle {
+        padding: 15px;
+        margin: -15px;
+    }
+    
+    /* Better visual hierarchy for important content */
+    .hero-content h1 {
+        line-height: 1.2;
+    }
+}
+
+/* Ensure accessibility standards are met */
+.cta-button, button, a {
+    transition: all 0.2s ease;
+}
+
+.cta-button:focus, button:focus, a:focus, input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 } 
