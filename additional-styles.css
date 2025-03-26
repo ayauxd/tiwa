@@ -1138,62 +1138,140 @@ header.scrolled .logo-subtitle {
     }
 }
 
-/* Mobile view fixes for header positioning and section lines */
+/* Enhanced mobile view fixes for header alignment and hero image */
 @media screen and (max-width: 768px) {
-    /* Increase main padding to ensure header is on white space */
-    main {
-        padding-top: 90px; /* Increased to ensure header doesn't overlap hero */
+    /* Ensure proper header height and positioning */
+    header {
+        padding: 10px 15px;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--bg-color);
+        z-index: 1010;
     }
     
-    /* Center logo in mobile view */
+    /* Perfect centering for the logo and subtitle */
     .logo-container {
-        padding: 5px 0;
-        align-items: center;
-        width: 100%;
-        margin: 0 auto;
-        text-align: center;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 15px;
+        top: 50%;
+        margin-top: -30px;
+        width: auto;
         max-width: 180px;
-        z-index: 1010; /* Ensure it's above other elements */
-        background-color: transparent;
-    }
-    
-    /* Ensure header has solid background on mobile */
-    header {
-        background-color: var(--bg-color);
-        backdrop-filter: blur(8px);
-        height: 70px;
-    }
-    
-    /* Style hero content for better readability */
-    .hero-content {
-        margin-top: 0; /* Remove negative margin */
-        padding: 25px 20px;
-        text-align: center;
-        background-color: var(--card-bg);
-        border-radius: 0; /* Remove border radius */
-        margin: 0;
-        box-shadow: none;
-        position: relative;
-        z-index: 2;
-    }
-    
-    /* Fix hero card to remove any potential overlap */
-    .hero-card {
-        margin: 0;
+        z-index: 100;
         padding: 0;
     }
     
-    /* Adjust hero image container */
+    /* Precise positioning for light/dark toggle on LEFT */
+    .header-right {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 200;
+    }
+    
+    /* Theme toggle styling to match hamburger */
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* Precise positioning for hamburger menu on RIGHT */
+    .mobile-nav-toggle {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        z-index: 200;
+    }
+    
+    /* Ensure main content starts below fixed header */
+    main {
+        padding-top: 70px;
+    }
+    
+    /* Hero section improvements */
+    .hero {
+        padding-top: 0;
+        overflow: visible;
+    }
+    
+    /* Ensure hero card properly structures content */
+    .hero-card {
+        display: flex;
+        flex-direction: column;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Make hero image prominent and visible */
     .hero-image {
         width: 100%;
         height: 220px;
         margin: 0;
         overflow: hidden;
-        border-radius: 0;
+        position: relative;
+        display: block !important;
+    }
+    
+    /* Ensure image is visible */
+    .hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* Style hero content as an overlapping card */
+    .hero-content {
+        padding: 20px;
+        background: var(--card-bg);
+        margin: -30px 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        position: relative;
+        z-index: 5;
+    }
+    
+    /* Condense hero text for mobile */
+    .hero-content h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .hero-content .description {
+        font-size: 0.95rem;
+        line-height: 1.4;
+        margin-bottom: 15px;
+    }
+    
+    /* Ensure navigation menu appears properly */
+    .main-nav {
+        position: fixed;
+        top: 70px;
+        z-index: 90;
+        width: 100%;
     }
 }
 
