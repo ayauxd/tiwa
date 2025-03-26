@@ -755,126 +755,69 @@
     border-radius: 10px;
     transition: all 0.3s ease;
     box-shadow: none;
-    background-color: var(--bg-color);
+    background-color: transparent;
     border: 1px solid transparent;
     overflow: hidden;
 }
 
 .logo-container:hover {
-    background-color: rgba(209, 0, 0, 0.02);
+    background-color: transparent;
     transform: translateY(-2px);
     box-shadow: none;
-    border-color: rgba(209, 0, 0, 0.1);
-}
-
-/* Enhanced Header Logo Styling - Redesigned */
-.header-logo {
-    font-family: 'Space Mono', monospace;
-    font-weight: 900;
-    font-size: 38px;
-    position: relative;
-    padding: 5px 0;
-    letter-spacing: 0.5px;
-    color: var(--text-primary);
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
-    text-transform: uppercase;
-    position: relative;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: text-shadow 0.3s ease;
-}
-
-.header-logo::after {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary), rgba(209, 0, 0, 0.1));
-    border-radius: 1.5px;
-    transform: scaleX(0.7);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
-
-.logo-container:hover .header-logo {
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.logo-container:hover .header-logo::after {
-    transform: scaleX(1);
-}
-
-.header-logo .dot {
-    display: inline-block;
-    color: var(--primary);
-    font-weight: 900;
-    font-size: 38px;
-    margin: 0 1px;
-    position: relative;
-    transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
-    text-shadow: 0 2px 8px rgba(209, 0, 0, 0.2);
-}
-
-.logo-container:hover .header-logo .dot {
-    transform: scale(1.2);
-    text-shadow: 0 4px 12px rgba(209, 0, 0, 0.25), 0 2px 4px rgba(209, 0, 0, 0.15);
-}
-
-/* Enhanced Logo Subtitle Styling - Redesigned */
-.logo-subtitle {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-secondary);
-    letter-spacing: 0.7px;
-    margin-top: 8px;
-    line-height: 1.4;
-    max-width: 240px;
-    transition: transform 0.3s ease, opacity 0.3s ease, text-shadow 0.3s ease;
-    padding-left: 1px;
-    border-left: 2px solid transparent;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.logo-container:hover .logo-subtitle {
-    transform: translateX(4px);
-    border-left: 2px solid var(--primary);
-    padding-left: 6px;
-    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-.logo-subtitle strong {
-    color: var(--primary);
-    font-weight: 700;
-    transition: color 0.3s ease, font-weight 0.3s ease, text-shadow 0.3s ease;
-    text-shadow: 0 1px 4px rgba(209, 0, 0, 0.15);
-}
-
-.logo-container:hover .logo-subtitle strong {
-    font-weight: 800;
-    text-shadow: 0 2px 8px rgba(209, 0, 0, 0.2);
+    border-color: transparent;
 }
 
 /* Responsive adjustments for header logo */
 @media screen and (max-width: 768px) {
     .header-logo {
-        font-size: 30px;
+        font-size: 26px;
+        text-align: center;
     }
     
     .header-logo .dot {
-        font-size: 30px;
+        font-size: 26px;
     }
     
     .logo-subtitle {
         font-size: 11px;
-        max-width: 200px;
+        text-align: center;
+        max-width: 100%;
+        margin: 5px auto 0;
+        border-left: none;
+        padding-left: 0;
     }
     
     .logo-container {
-        padding: 10px 12px;
+        padding: 5px 0;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .logo-container:hover .logo-subtitle {
+        transform: none;
+        border-left: none;
+        padding-left: 0;
+    }
+}
+
+/* Optional: Add horizontal layout on desktop with centered alignment */
+@media screen and (min-width: 769px) {
+    .logo-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10px 0;
+    }
+    
+    .logo-subtitle {
+        margin-left: 15px;
+        margin-top: 0;
+        border-left: 2px solid var(--primary);
+        padding-left: 15px;
+    }
+    
+    .logo-container:hover .logo-subtitle {
+        transform: none;
     }
 }
 
